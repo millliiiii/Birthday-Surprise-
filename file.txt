@@ -1,0 +1,64 @@
+let suspenseMessage = document.getElementById('suspenseMessage');
+let birthdayMessage = document.getElementById('birthdayMessage');
+let roseContainer = document.getElementById('roseContainer');
+let envelope = document.getElementById('envelope');
+let note = document.getElementById('note');
+let envelopeContainer = document.getElementById('envelopeContainer');
+
+function createRose() {
+  const rose = document.createElement('div');
+  rose.classList.add('rose');
+  rose.style.left = Math.random() * 100 + 'vw';
+  rose.style.animationDuration = Math.random() * 3 + 5 + 's';
+  roseContainer.appendChild(rose);
+
+  setTimeout(() => {
+    rose.remove();
+  }, 8000);
+}
+
+function showRoses() {
+  roseContainer.classList.remove('hidden');
+  setInterval(createRose, 300);
+}
+
+function openEnvelope() {
+  envelope.classList.remove('closed');
+  envelope.classList.add('open');
+  note.classList.remove('hidden');
+}
+
+function closeEnvelope() {
+  envelope.classList.remove('open');
+  envelope.classList.add('closed');
+  note.classList.add('hidden');
+}
+
+setTimeout(() => {
+  suspenseMessage.classList.add('hidden');
+  birthdayMessage.classList.remove('hidden');
+}, 5000);
+
+birthdayMessage.addEventListener('click', () => {
+  birthdayMessage.classList.add('hidden');
+  showRoses();
+  envelopeContainer.classList.remove('hidden');
+});
+
+setTimeout(() => {
+  birthdayMessage.classList.add('hidden');
+  showRoses();
+  envelopeContainer.classList.remove('hidden');
+}, 10000);
+
+envelope.addEventListener('click', () => {
+  if (envelope.classList.contains('closed')) {
+    openEnvelope();
+  } else {
+    closeEnvelope();
+  }
+});
+
+setTimeout(() => {
+  openEnvelope();
+}, 15000);
